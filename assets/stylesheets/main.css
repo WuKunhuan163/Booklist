@@ -1,0 +1,132 @@
+:root {
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 60px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: black;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #f8f8f8;
+    border-right: 1px solid #e0e0e0;
+    transition: width var(--transition-speed);
+    position: relative;
+    height: 100vh;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-content {
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
+}
+
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
+.logo-container {
+    padding: 20px;
+    text-align: center;
+    user-select: none;
+}
+
+.logo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    right: -12px;
+    top: 20px;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.language-selector {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+#languageSelect {
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        width: var(--sidebar-collapsed-width);
+        z-index: 1000;
+    }
+    
+    .sidebar.expanded {
+        width: calc(100% - 12px); /* Subtract half of toggle button width */
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-collapsed-width);
+        width: calc(100% - var(--sidebar-collapsed-width));
+        transition: margin-left var(--transition-speed), width var(--transition-speed);
+    }
+
+    .sidebar.expanded + .main-content {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    /* Ensure the toggle button stays visible */
+    .sidebar-toggle {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+} 
